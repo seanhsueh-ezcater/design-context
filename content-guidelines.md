@@ -162,6 +162,50 @@ Select 3–5 relevant tags per article. For specific topics, use tangentially re
 
 ---
 
+## Product Copy Principles
+
+Within our products, we're always consistent with ezCater's brand voice and tone standards, but we don't view them as a checklist. Some microcopy field labels should just say "ZIP code." Clever would be annoying.
+
+When in doubt, these principles describe how we serve customers and advance business goals.
+
+### Principle 1: Reinforce brand values by proving them
+Product content focuses on advancing a customer successfully toward their goal. Deliver on the customer's intention, consistent with brand values — rather than speaking of brand values.
+
+- Voice and tone serve action. Think of our four voice characteristics as tools, not restrictions.
+- Part of going beyond helpful is saving customers time and focusing on their priorities.
+- In a product, clever is rarely "ha ha," but might be a winking gesture toward the perfect solution.
+- Speaking conversationally is real.
+- Pros walk the walk, inspiring confidence through their words and behavior.
+
+We advance the brand by demonstrating these characteristics, making good on our promises, and reinforcing trust.
+
+### Principle 2: Write for the most particular audience and moment
+Employ dynamic content when it's useful to the customer. Save them time and effort. If they've given us information, use it to their benefit. Be helpful and transparent, not creepy.
+
+Don't make people interpret vague directions. If we must cover multiple cases, use clear labeling, enumeration, and meaningful differentiating details to help people know what applies to them and how to be successful.
+
+### Principle 3: Aim for consistency, not uniformity
+Use the standards until there's a problem they're not solving. Don't deviate from our standard terms, patterns, and styles unless you have good reason. There's enormous value in our consistency, for us and our audiences.
+
+There are functional and stylistic reasons to deviate — know why you're doing it. The rules are guidelines, not laws. If we better serve a customer by deviating from a standard, bring it to the table and document the decision.
+
+### Principle 4: Less really is usually more
+Trust our customers and design patterns. Product content meets the needs of the customer at the moment they're using it, as validated by research, analytics, and content design best practices.
+
+There's a tendency to ask "what if" about every possible scenario and to add qualifiers, adjectives, and tooltips "just in case" — but these additions need to prove their worth.
+
+Excess content is BAD. Simplicity and brevity are challenging, but show our confidence. Excess content, especially if it's legalistic, introduces doubt and puts cognitive load on our customers.
+
+### Principle 5: When more is needed, content design takes priority
+"People don't read" isn't true if the content is properly designed. There are times we need to say more than fits in a field label or a single line of text — customers sometimes need and want more information.
+
+In these cases, we still want to avoid the perception of "too much." We should not add walls of text. "More content" might mean:
+- Two columns of three-word bullets
+- An expandable section with more details
+- Moving content to other parts of the page or flow to present it in its most useful context
+
+---
+
 ## Social Promotion Templates
 
 ```
