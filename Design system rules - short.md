@@ -15,6 +15,8 @@ Design references: Performance dashboard: https://www.figma.com/design/CAanVdfL2
         5.	Typography styles should only be the ones from the Ingredients 2.0 file. 
         6.	Always design with accessibility in mind. We want AA compliance at least. 
         7.	Use auto-layout at all times and do not create “spacing” frames. 
+        8.	Always use Font Awesome 7 Pro for icons. Never use emoji, unicode symbols, or other icon fonts as substitutes.
+        9.	Always use font styles from Ingredients 2.0. Do not hardcode font sizes, weights, or line heights — apply the named text styles (e.g. Body M, Heading S) from the Ingredients 2.0 library.
 	2.	Buttons
         1.	Use default button size for most scenarios. If using a button inside a small space (like a table row) then use the small size. 
         2.	Button placement - for modals, the buttons should be on the bottom right. The buttons should follow this order [Secondary button][Primary button]
