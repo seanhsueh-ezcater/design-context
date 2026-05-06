@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ezCater Design Rulebook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .app { display: flex; height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 293px;
+      min-width: 293px;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      background: #fff;
+      border-right: 1px solid #e8e8e8;
+    }
+
+    .logo {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      font-size: 28px;
+      font-weight: 800;
+      color: #00823c;
+      letter-spacing: -0.5px;
+      user-select: none;
+    }
+
+    .nav {
+      position: absolute;
+      top: 188px;
+      left: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-item {
+      display: block;
+      width: 213px;
+      height: 38px;
+      line-height: 38px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a1a;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.15s ease;
+      margin-bottom: 49px;
+      font-family: 'Figtree', sans-serif;
+    }
+
+    .nav-item:last-child { margin-bottom: 0; }
+    .nav-item:hover { color: #00823c; }
+
+    .nav-item.active {
+      color: #00823c;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 2px;
+    }
+
+    /* ── Content area ── */
+    .content-area {
+      margin-left: 293px;
+      flex: 1;
+      height: 100vh;
+      overflow-y: auto;
+      background: #fff;
+      scroll-behavior: smooth;
+    }
+
+    .tab {
+      display: none;
+      padding: 120px 120px 100px 120px;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    .tab.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .tab-title {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 38px;
+      color: #1a1a1a;
+      margin-bottom: 55px;
+    }
+
+    /* ── Markdown body ── */
+    .body { max-width: 907px; }
+
+    .body p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #2c2c2c;
+      margin-bottom: 14px;
+    }
+
+    .body h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 8px;
+    }
+
+    .body h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 40px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .body h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 28px 0 10px;
+    }
+
+    .body h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin: 20px 0 8px;
+    }
+
+    .body ul, .body ol {
+      margin: 0 0 14px 22px;
+    }
+
+    .body li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #2c2c2c;
+      margin-bottom: 4px;
+    }
+
+    .body li > ul, .body li > ol {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .body code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .body pre {
+      background: #f4f4f4;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+    }
+
+    .body pre code {
+      background: none;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    .body strong { font-weight: 700; }
+    .body em { font-style: italic; color: #555; }
+
+    .body hr {
+      border: none;
+      border-top: 1px solid #ebebeb;
+      margin: 36px 0;
+    }
+
+    .body blockquote {
+      border-left: 3px solid #00823c;
+      padding: 4px 0 4px 16px;
+      margin: 16px 0;
+      color: #555;
+    }
+
+    .body a {
+      color: #00823c;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .body a:hover { color: #005a2b; }
+
+    .body table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .body th {
+      background: #f5f5f5;
+      font-weight: 600;
+      padding: 10px 14px;
+      border: 1px solid #e0e0e0;
+      text-align: left;
+    }
+
+    .body td {
+      padding: 10px 14px;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Research placeholder */
+    .coming-soon {
+      padding-top: 20px;
+      font-size: 16px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">ezcater</div>
+      <nav class="nav">
+        <a class="nav-item active" data-tab="content" href="#">Content</a>
+        <a class="nav-item" data-tab="design" href="#">Design</a>
+        <a class="nav-item" data-tab="research" href="#">Research</a>
+      </nav>
+    </aside>
+
+    <main class="content-area" id="content-area">
+      <div id="tab-content" class="tab active">
+        <h1 class="tab-title">Content guidelines</h1>
+        <div class="body" id="content-body"></div>
+      </div>
+
+      <div id="tab-design" class="tab">
+        <h1 class="tab-title">Design rules</h1>
+        <div class="body" id="design-body"></div>
+      </div>
+
+      <div id="tab-research" class="tab">
+        <h1 class="tab-title">Research</h1>
+        <p class="coming-soon">Research resources coming soon.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- ── Content guidelines markdown ── -->
+  <script type="text/template" id="content-md">
+# ezCater Content Guidelines
+
+## Who We Are
+
+ezCater was founded in August 2007 in Boston, Massachusetts, and is the only nationwide marketplace for corporate catering. We make it easy to order food online for your office — from routine office lunches to offsite client meetings, from 5 to 2,000 people. ezCater connects businesspeople with over 50,000 reliable local caterers and restaurants across the U.S.
+
+---
+
+## Our Content Strategy
+
+### Mission
+
+Articles will connect the challenges ezCater's audiences encounter at work to food while demonstrating the impact catering can have on their success.
+
+### Audience Personas
+
+**Office Admins** — Office Admins, Executive Assistants, Secretaries, and Office Managers. Constantly busy, managing multiple interests and personalities. Ordering food is always their third or fourth job.
+
+**Sales** — Work across industries (pharma, tech, etc.). Constantly on the go, under pressure to meet quota. Orders food for client meetings in locations they may not know.
+
+**Trainers** — Coordinating training across the country or within their office. Struggle with attendance, engagement, and measuring effectiveness. Ordering food is one more thing they don't have time for but can be key to engagement.
+
+**Caterers** — Small restaurants, franchises, or dedicated catering shops. Managing back-of-house operations while building their business. May have expanded into catering as a market growth strategy.
+
+---
+
+## Content Categories
+
+**In the Industry** — Career problems we can help solve, related to relationships or time. Must always be genuinely helpful.
+- Subcategories: Office Management · Sales · Training · Restaurant
+
+**Food at Work** — How food supports the work you do and advice for catering orders.
+- Subcategories: Office Management · Sales · Training · Restaurant
+
+**Trends in Food** — Trends in food, catering, and catering restaurants nationally and by metro.
+- Subcategories: Need to Know · The Best Of
+
+**ezCater Insider** — Benefits of using ezCater, company culture, and events.
+- Subcategories: Using ezCater · ezCater Culture · ezCater Events
+
+---
+
+## Brand Tone
+
+ezCater's tone balances approachability and friendliness with knowledge and expertise. Casual but concise and exact.
+
+Always be: **Helpful · Precise · Intelligent but down-to-earth · Conversational · Professional · Direct and clear**
+
+Articles should always:
+- Understand personas' issues at work and recognize their lack of time
+- Be supported by reputable sources or experts
+- Provide actionable advice
+- Have the tone of a friendly mentor giving advice to a peer
+- Be digestible and scannable
+- Deliver specific advice that doesn't leave lingering questions
+
+### Point of View
+- Write in the present tense
+- Use active voice at all times
+- Use second- or third-person
+
+---
+
+## Style Guide
+
+- Follow the **AP Stylebook** for style and spelling; fall back to Merriam-Webster
+- Follow **AP Title Style** for article titles and subheads (e.g. *5 Alternatives to the Taco Bar*)
+- Use the **Oxford comma**
+- Always capitalize titles, whether before or after a person's name
+- Use acronyms sparingly; spell out at first mention
+- Use jargon only if necessary; define at first mention
+- Content must be original and exclusive to ezCater — no plagiarism or copyrighted content
+- Do not mention competitors or competitors' products
+- Articles should be **500–700 words**
+
+### Glossary
+- **ezCater** (not EZcater or EzCater)
+- **Stefania Mallett**
+- Those who order catering: **customers** (not clients or guests)
+- Refer to ezCater as an **"online app"**
+- Do **not** use: *Seamless*
+
+---
+
+## Article Elements
+
+### Takeaways
+Every article includes 3 takeaways summarizing main points — helpful, actionable, and concise for readers on the go.
+
+### Call to Action
+Every article ends with a sentence driving readers to ezcater.com, relevant to the article topic.
+> Example: *Looking to order for your next lunch and learn? Start your search here.*
+
+### Social Post
+Every article includes a 100-character social post for reader sharing. It should sum up the article, include a stat, or ask a question answered in the article.
+
+---
+
+## Links & Sourcing
+
+### Sources
+- Cite information accurately in the body of the content with inline links — no bibliography
+- Include at least 1 ezCater article link within each article
+- All data must come from reputable, non-competitor sources
+
+**Acceptable sources:** Restaurant Business Magazine · Eater · Inc. · OfficeNinjas · ASAP · SHRM · Training Journal · Technomic · Forbes · Business Insider · Nation's Restaurant News · The New York Times
+
+**Unacceptable sources:** Competitors (Grubhub, Seamless) · Crowdsourced sites (Quora, LiveStrong) · Small businesses
+
+### Links
+- Include 1–6 links total
+- At least 1 ezCater article link, at least 1 strong external source
+- Always link sources for any claims, stats, or data
+- Use keywords as anchor text when linking to a site
+- Use the source's name as anchor text when linking to a source
+
+---
+
+## Photos
+
+### Featured Image
+One relevant image at the top of every article. Must complement the article subject.
+
+**Look for:** Candid and natural people · Human element · Diverse groups · Interesting angles, lighting, or depth of field
+
+**Avoid:** Posed or "stock" looking images · Vector images · Illustrations · Heavily edited photos
+
+All images should be horizontal with the subject in the middle third. Source from Shutterstock. Paste the image URL above the title with `Image:` before it.
+
+**Alt text:** Short natural-language description, one sentence max. Include keyword if it fits naturally.
+
+### Supplemental Images
+Charts, diagrams, or photos that illustrate a point are encouraged. Must be license-free and sourced within the article.
+
+---
+
+## SEO Best Practices
+
+### Keywords
+- Use the primary keyword **3–6 times** in the body
+- Use the primary keyword within the **first 100 characters**
+- If a secondary keyword is assigned, use it **at least 3 times**
+
+### Headlines
+- Aim for **6–7 words**
+- Use the keyword naturally
+- Be descriptive, engaging, and honest — never promise what isn't in the article
+
+---
+
+## Formatting
+
+**Subheads** — Break content into scannable sections. Brief, descriptive, can include keyword if natural.
+
+**Lists** — Use numbered lists for steps, bulleted lists for groupings. Good for readability and search.
+
+**Pull quotes** — Use for particularly important or standout quotes or data points.
+
+---
+
+## Tagging
+Select 3–5 relevant tags per article. For specific topics, use tangentially related tags. For broad topics, use directly related tags.
+
+---
+
+## Product Copy Principles
+
+Within our products, we're always consistent with ezCater's brand voice and tone standards, but we don't view them as a checklist. Some microcopy field labels should just say "ZIP code." Clever would be annoying.
+
+### Principle 1: Reinforce brand values by proving them
+Product content focuses on advancing a customer successfully toward their goal. Deliver on the customer's intention, consistent with brand values — rather than speaking of brand values.
+
+- Voice and tone serve action. Think of our four voice characteristics as tools, not restrictions.
+- Part of going beyond helpful is saving customers time and focusing on their priorities.
+- In a product, clever is rarely "ha ha," but might be a winking gesture toward the perfect solution.
+- Speaking conversationally is real.
+- Pros walk the walk, inspiring confidence through their words and behavior.
+
+### Principle 2: Write for the most particular audience and moment
+Employ dynamic content when it's useful to the customer. Save them time and effort. If they've given us information, use it to their benefit. Be helpful and transparent, not creepy.
+
+Don't make people interpret vague directions. If we must cover multiple cases, use clear labeling, enumeration, and meaningful differentiating details.
+
+### Principle 3: Aim for consistency, not uniformity
+Use the standards until there's a problem they're not solving. Don't deviate from our standard terms, patterns, and styles unless you have good reason. There's enormous value in our consistency.
+
+There are functional and stylistic reasons to deviate — know why you're doing it. The rules are guidelines, not laws.
+
+### Principle 4: Less really is usually more
+Trust our customers and design patterns. Product content meets the needs of the customer at the moment they're using it.
+
+Excess content is BAD. Simplicity and brevity are challenging, but show our confidence. Excess content, especially if it's legalistic, introduces doubt and puts cognitive load on our customers.
+
+### Principle 5: When more is needed, content design takes priority
+"People don't read" isn't true if the content is properly designed. There are times we need to say more — customers sometimes need and want more information.
+
+"More content" might mean:
+- Two columns of three-word bullets
+- An expandable section with more details
+- Moving content to other parts of the page or flow to present it in its most useful context
+  </script>
+
+  <!-- ── Design rules markdown ── -->
+  <script type="text/template" id="design-md">
+# Design System Rulebook — Ingredients 2.0
+*Extended Edition · ezCater*
+
+---
+
+## Design System Philosophy
+
+Our design system exists to make the ezCater product feel cohesive, trustworthy, and effortless for restaurant partners. Every design decision should serve clarity and task completion — not aesthetic novelty. We favor consistency over creativity, purposeful over ornamental, and accessibility over assumption.
+
+These rules are not suggestions. They are the foundation for scalable, reviewable, and maintainable product design across large teams and evolving systems.
+
+---
+
+## Golden Rules
+
+Non-negotiable. Apply to every screen, component, and annotation.
+
+1. **Tokens only.** Never use raw hex values, hardcoded sizes, or magic numbers.
+2. **Check the system first.** Always look in Ingredients 2.0 before building from scratch.
+3. **Accessibility is not optional.** Every screen must meet WCAG 2.1 AA at minimum.
+4. **Auto-layout everywhere.** Never use blank spacing frames.
+5. **Color never stands alone.** Pair all color cues with text or icons.
+6. **Typography follows the scale.** No one-off sizes, no custom weights.
+7. **Icons use Font Awesome 7 Pro.** Never use emoji, unicode symbols, or other icon fonts.
+8. **Font styles from Ingredients 2.0 only.** Apply named text styles (Body M, Heading S) — never hardcode sizes or weights.
+9. **Motion must earn its place.** Animate only to communicate change, never to decorate.
+10. **Microcopy is design.** Treat labels, error messages, and empty states with the same rigor as layout.
+11. **Every interactive element has all its states.** Default, hover, focus, active, disabled, error, loading.
+12. **When a rule is missing, document it.** Gaps in the system are contribution opportunities.
+
+---
+
+## 1. Foundations
+
+### 1.1 Tokens
+- Always use semantic variable token names instead of raw hex values, including in annotations and redlines.
+- Use color tokens for all text, backgrounds, borders, icons, and overlays.
+- Token names must be semantic (e.g., `color.text.critical`) not descriptive (e.g., `red-500`).
+- Never hardcode spacing values that exist as tokens in the system.
+- Theming must be entirely token-based — no local inline overrides.
+- When a token doesn't exist for your use case, propose one. Don't work around the system.
+
+**DO:** Reference `color.background.surface` for card backgrounds. Use spacing tokens for all gaps.
+**DON'T:** Use `#FF0000` directly in any annotation. Create local styles that duplicate system tokens.
+
+*Anti-patterns:* "Magic number" spacing values (13px, 17px) with no token basis.
+
+### 1.2 Spacing
+- Use 8px as the base spacing unit. All custom spacing must be a multiple of 8 (8, 16, 24, 32, 40, 48...).
+- Use 4px only for micro-spacing within a component (e.g., icon-to-label gap).
+- Apply 16px horizontal padding to all interactive elements: buttons, inputs, selects, filters.
+- Use 24px vertical spacing between major sections on a page.
+- Follow the built-in spacing within components — never manually override label-to-input gaps.
+- Never use arbitrary spacing values (e.g., 10px, 13px, 15px).
+
+**DO:** Use 8px between an icon and its label. Use 24px between a card header and content sections.
+**DON'T:** Insert blank "spacer" frames. Override built-in component spacing. Use 10px gaps.
+
+### 1.3 Color
+- Never use color as the sole means of conveying meaning — always pair with an icon, label, or text.
+- Red is reserved for critical errors and destructive states only.
+- Green is reserved for success states only.
+- Decorative color is permitted only in illustrations, never in UI components.
+- All text must meet WCAG 2.1 AA contrast: 4.5:1 for text, 3:1 for UI components and icons.
+- Prefer AAA (7:1) contrast for body text and critical information.
+
+**DO:** Pair a red error icon with an error text message below the field.
+**DON'T:** Use color as the only differentiator between two states.
+
+### 1.4 Typography
+- Use 'Body M' for all standard body text.
+- Use 'Body S' and 'Body XS' only for captions, subtitles, helper text, or legal print.
+- Never use 'Body S' or 'Body XS' as the primary reading text in a view.
+- Typography styles must come exclusively from Ingredients 2.0 — no custom one-off sizes or weights.
+- Establish hierarchy through a combination of weight, size, color, and positioning — not size alone.
+- Monospace fonts are reserved for code. Tabular numerals are used for financial/data figures.
+
+**DO:** Use 'Body M Regular' for descriptive card text. Use 'Body S' for timestamps and helper text.
+**DON'T:** Use a custom 13px text style. Apply 'Heading XS' to body paragraphs.
+
+### 1.5 Icons
+- Always use **Font Awesome 7 Pro** for all icons.
+- Never use emoji, unicode symbols, or other icon fonts as substitutes.
+- Use the Solid style for primary UI icons, Regular for secondary or decorative icons.
+- Match icon size to the surrounding text size (e.g., 16px icon with 16px text).
+
+### 1.6 Headers
+- Use 'Heading L' for the top-level page header only — one per page.
+- Use 'Heading S' for section headings within a page.
+- Use 'Heading XS' for headings within a paragraph or dense content block.
+- Never use more than three heading levels in a single view.
+- Do not skip heading levels (e.g., don't jump from Heading L directly to Heading XS).
+- Do not use bold body text as a substitute for a semantic heading.
+
+**DO:** One 'Heading L' as the page title. 'Heading S' to introduce each settings card section.
+**DON'T:** Place two 'Heading L' elements on the same page.
+
+---
+
+## 2. Components
+
+### 2.1 Component Architecture
+- Always check Ingredients 2.0 for an existing component before building from scratch.
+- Read the component's documented guidelines in Ingredients 2.0 before placing it in a design.
+- Never recreate a component with modified internals — use a system variant or formally propose a new one.
+- Prefer composition over customization: combine existing components rather than modifying them.
+- Components must not be detached from the system without explicit justification and team approval.
+
+**DO:** Use the system Filter component before building a custom filter.
+**DON'T:** Detach a component and manually edit its internals.
+
+*Anti-patterns:* "Zombie components" — detached instances that drift from the system over time.
+
+### 2.2 Buttons
+- Use the default (medium) button size for most UI scenarios.
+- Use the small button size only in constrained spaces (e.g., inside a table row).
+- Never use a large button unless explicitly specified in the design reference.
+- In modals and dialogs, place buttons bottom-right in this order: [Secondary] [Primary].
+- Use only one primary button per view unless each row in a list requires its own primary CTA.
+- Use the destructive variant for delete or remove actions — never a primary button.
+- Disabled buttons must be paired with a tooltip or inline explanation of why they are disabled.
+- Button labels must be verb-led: "Save changes", "Add promotion", "Remove store".
+
+**DO:** Use [Cancel] [Save changes] right-aligned in modal footers.
+**DON'T:** Place two primary buttons side-by-side. Use "OK", "Yes", or "Submit" as standalone labels.
+
+### 2.3 Form Elements (Inputs, Selects, Filters)
+- Apply 16px horizontal padding to all input fields, select dropdowns, and filter controls.
+- Every input must have a visible, associated label — placeholder text alone is not a label.
+- Error states must include an error message below the field — not just a red border.
+- Required fields must be marked clearly (asterisk or explicit "Required" label).
+- All inputs must support keyboard navigation and screen reader labels.
+
+**DO:** Use the system Input component with its built-in label slot.
+**DON'T:** Use placeholder text as a label substitute. Rely on a red border alone to indicate an error.
+
+---
+
+## 3. Layout & Responsiveness
+
+### 3.1 Frame Dimensions
+- Use 1440 × 1024px as the default desktop frame size.
+- Increase frame height to accommodate content — never clip or hide content within a fixed-height frame.
+- Do not shrink the frame width below 1440px for desktop designs unless explicitly designing a responsive breakpoint.
+
+### 3.2 Auto-Layout
+- Use auto-layout at all times for frames that contain multiple elements.
+- Never create blank "spacing" frames to push elements apart.
+- Set explicit alignment (top, center, baseline) on all auto-layout containers.
+- Use "Fill container" on children that should expand, "Hug contents" on containers that should shrink.
+- Prefer nested auto-layouts over absolute positioning.
+
+**DO:** Use a vertical auto-layout with 24px gap for page sections.
+**DON'T:** Insert a blank frame between elements to create spacing.
+
+### 3.3 Responsive Behavior
+- Design for 1440px as the primary breakpoint. Annotate responsive behavior for navigation, tables, and data-heavy components.
+- Content must reflow at smaller viewports — not be hidden or clipped.
+- Never design interactions that require a mouse — all interactions must be keyboard-accessible.
+
+---
+
+## 4. Interaction & State Management
+
+- Every interactive component must define all states: Default, Hover, Focus, Active, Disabled, Error, Loading, Empty.
+- Focus states must always be visible — never suppress the focus ring without replacing it.
+- Loading states must show a skeleton or spinner — never leave a blank space while content loads.
+- Empty states must communicate what the user can do next, not just that nothing exists.
+- Error states must be actionable: explain what went wrong and how to fix it.
+- Success states should be transient (toast/banner) and must not block the user's workflow.
+- Provide immediate visual feedback (spinner, disabled state) within 300ms of a user action.
+
+**State decision guide:**
+- Loading — Skeleton for content areas; spinner for inline or button actions
+- Empty — Illustration + description + primary CTA
+- Error — Inline message + retry action
+- Success — Toast notification, auto-dismiss after 4–5 seconds
+- Disabled — Reduced opacity + tooltip explaining why
+
+---
+
+## 5. Content & Microcopy
+
+- Treat microcopy with the same rigor as visual decisions — words are part of the design.
+- Write at a 7th-grade reading level. Use clear, human, conversational language.
+- Use contractions (it's, you'll, we'll) to sound conversational.
+- Avoid jargon, corporate speak, and passive voice.
+- All CTAs and button labels must be verb-led: "Save changes", "Add promotion", "Remove store".
+- Never use "Click here", "Submit", or "OK" as standalone labels.
+- Omit punctuation from single-sentence UI labels unless the sentence is a question.
+- Apply the "Jenga test" — remove every word possible until meaning breaks, then add one back.
+- Error messages must tell users what went wrong and what to do next.
+
+**Tone guidelines:** Confident not arrogant · Helpful not patronizing · Direct not blunt · Human not robotic
+
+---
+
+## 6. Accessibility & Internationalization
+
+### 6.1 Accessibility
+- Minimum standard: WCAG 2.1 AA compliance on every screen. Target AAA for body text.
+- Color contrast: 4.5:1 for text, 3:1 for UI components and icons.
+- Never rely on color alone to convey meaning — always pair with text or icon.
+- All interactive elements must be keyboard-navigable (Tab, Enter, Space, Escape, Arrow keys).
+- All images must have descriptive alt text. Decorative images use `alt=""`.
+- All form inputs must have a visible, associated label — not just placeholder text.
+- Focus indicators must always be visible — never suppress or hide the focus ring.
+- Modals must trap focus when open. Focus returns to the trigger element on close.
+
+### 6.2 Internationalization
+- Design layouts to accommodate text expansion of up to 30% for translated languages.
+- Never embed text inside images — always use live text.
+- Avoid idioms and colloquialisms that may not translate accurately.
+- Date formats must use the user's locale — never hardcode US-specific formats (MM/DD/YYYY).
+
+---
+
+## 7. Data Display & Complexity Handling
+
+- Use tables for multi-column comparable data. Use lists for single-dimension content.
+- Always provide column sorting for tabular data where comparison is the goal.
+- Paginate tables with more than 25 rows by default — do not infinite-scroll data tables.
+- Empty table cells must show a dash (—) — never leave a blank cell.
+- Truncate long text in table cells with an ellipsis and expose full content via tooltip or expanded row.
+- Charts must always include axis labels, legends, and data point labels or tooltips.
+- Never use a pie chart for more than 5 segments — prefer bar charts for comparison.
+- Filters and search must narrow visible data, not navigate to a new page.
+
+---
+
+## 8. Motion & Feedback
+
+- Motion must be purposeful — it helps users understand what changed, not decorate the interface.
+- Keep animations short: 100–200ms for micro-interactions, 200–300ms for page-level transitions.
+- All animations must have a no-motion fallback that respects `prefers-reduced-motion`.
+- Loading feedback must appear within 300ms of a user action.
+- Toast notifications auto-dismiss after 4–5 seconds. Error toasts do not auto-dismiss.
+
+**Motion reference:**
+- Dropdown appearing — 150ms ease-out fade
+- Modal opening — 200ms ease-out scale + fade
+- Toast notification — 200ms slide-in, auto-dismiss after 4–5s
+- Page-level transition — 250ms fade
+- Skeleton loading — continuous 1.5s pulse
+
+---
+
+## 9. Shape & Visual Style
+
+- Use 16px border radius for cards, modals, panels, and container elements.
+- Use 8px border radius for smaller components: tags, badges, chips.
+- Use 4px border radius for inline micro-elements: tooltips, small buttons.
+- Never mix border radius values within the same component family.
+- Elevation (shadows) must follow the token system — never add custom drop shadows outside the system.
+
+---
+
+## 10. Placeholder Content
+
+- Use these placeholder store names in order: **1234 Test Store · 1235 Broadway · 1236 Park Place**
+- Use these placeholder sales values: **$1,234 · $2,345 · $3,456**
+- Placeholder content must be realistic — use formats that reflect real product data.
+- Never use "Lorem ipsum" — all placeholder text must be product-realistic.
+- Date placeholders should use realistic timeframes (e.g., "Last 30 days", not "Jan 1 – Jan 1").
+
+---
+
+## 11. Governance & Contribution
+
+- If a component or pattern doesn't exist in Ingredients 2.0, document the gap before building anything.
+- New components must include: use case rationale, anatomy, all states, and usage guidelines.
+- Design reviews must verify: token usage, component adherence, accessibility, and microcopy quality.
+- Any rule in this document can be challenged — but changes require team agreement and documentation.
+- When in doubt, default to the more accessible, more consistent option.
+
+**Contribution checklist for new components:**
+- [ ] Documented use case and rationale
+- [ ] All states defined (default, hover, focus, active, disabled, error, loading, empty)
+- [ ] Accessibility requirements confirmed
+- [ ] Token usage verified
+- [ ] Microcopy guidelines included
+- [ ] Added to Ingredients 2.0 or formally proposed to the team
+  </script>
+
+  <script>
+    // Render markdown into DOM
+    const contentMd = document.getElementById('content-md').textContent.trim();
+    const designMd  = document.getElementById('design-md').textContent.trim();
+
+    document.getElementById('content-body').innerHTML = marked.parse(contentMd);
+    document.getElementById('design-body').innerHTML  = marked.parse(designMd);
+
+    // Tab switching
+    const navItems    = document.querySelectorAll('.nav-item');
+    const tabs        = document.querySelectorAll('.tab');
+    const contentArea = document.getElementById('content-area');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        const tabName = item.dataset.tab;
+
+        navItems.forEach(n => n.classList.remove('active'));
+        item.classList.add('active');
+
+        tabs.forEach(t => t.classList.remove('active'));
+        const target = document.getElementById('tab-' + tabName);
+        target.classList.add('active');
+
+        contentArea.scrollTop = 0;
+      });
+    });
+
+    // Keyboard navigation
+    navItems.forEach((item, i) => {
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          navItems[(i + 1) % navItems.length].focus();
+        }
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          navItems[(i - 1 + navItems.length) % navItems.length].focus();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
