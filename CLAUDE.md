@@ -12,7 +12,7 @@ These rules apply to every prototype built in this repo. Follow them without bei
 
 ## Design system — Tapas / Ingredients 2.0
 
-- Always check Tapas for an existing component before building from scratch: https://tapas.ezcater.com
+- Always use Tapas components when prototyping: https://github.com/ezcater/tapas
 - Import components from `@ezcater/tapas` when available
 - Use ezCater design tokens (CSS custom properties) for all colors — never hardcode hex values
 - Typography: use Tapas text styles (`heading-xl`, `heading-sm`, `body-md`, `body-sm`) — never hardcode font sizes
