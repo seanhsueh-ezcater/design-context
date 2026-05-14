@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap');
-
 body {
   font-family: 'Figtree', sans-serif;
+  background-color: var(--color-surface-primary-subtle);
 }
