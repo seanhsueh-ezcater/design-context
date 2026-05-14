@@ -31,9 +31,27 @@ export default function App() {
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen gap-12">
       <div className="w-80 flex flex-col gap-6">
-        <Slider label="Budget" value={sliderValue} onValueChange={setSliderValue} />
-        <Slider label="Rating" defaultValue={[70]} />
-        <Slider label="Disabled" defaultValue={[50]} disabled />
+        <div className="flex flex-col gap-2">
+          <span className="text-base text-peppercorn-800">Budget</span>
+          <Slider.Root value={sliderValue} onValueChange={setSliderValue}>
+            <Slider.Track><Slider.Range /></Slider.Track>
+            <Slider.Thumb aria-label="Budget" />
+          </Slider.Root>
+        </div>
+        <div className="flex flex-col gap-2">
+          <span className="text-base text-peppercorn-800">Rating</span>
+          <Slider.Root defaultValue={[70]}>
+            <Slider.Track><Slider.Range /></Slider.Track>
+            <Slider.Thumb aria-label="Rating" />
+          </Slider.Root>
+        </div>
+        <div className="flex flex-col gap-2">
+          <span className="text-base text-peppercorn-300">Disabled</span>
+          <Slider.Root defaultValue={[50]} disabled>
+            <Slider.Track><Slider.Range /></Slider.Track>
+            <Slider.Thumb aria-label="Disabled slider" />
+          </Slider.Root>
+        </div>
       </div>
 
       <Dialog.Root open={open} onOpenChange={setOpen}>

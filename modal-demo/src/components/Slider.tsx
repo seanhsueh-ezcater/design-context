@@ -1,58 +1,84 @@
-import * as RadixSlider from '@radix-ui/react-slider';
+import { forwardRef } from 'react';
+import { Slider as SliderPrimitive } from 'radix-ui';
+import { tv } from 'tailwind-variants';
+import cn from '../utils/cn';
+import { tapasClassNames } from '../utils/tapasClassNames';
 
-interface SliderProps {
-  value?: number[];
-  defaultValue?: number[];
-  min?: number;
-  max?: number;
-  step?: number;
-  disabled?: boolean;
-  onValueChange?: (value: number[]) => void;
-  label?: string;
-}
+const sliderVariants = tv({
+  slots: {
+    root: 'relative flex items-center select-none touch-none w-full h-6',
+    track: 'relative grow rounded-full h-1.5 bg-peppercorn-200 data-[disabled]:bg-peppercorn-100',
+    range: 'absolute h-full rounded-full bg-green-700 data-[disabled]:bg-peppercorn-300',
+    thumb: [
+      'block w-4 h-4 rounded-full bg-green-700 border-2 border-white shadow-md',
+      'transition-shadow',
+      'hover:bg-green-600',
+      'active:bg-green-800',
+      'data-[disabled]:bg-peppercorn-300 data-[disabled]:pointer-events-none',
+      tapasClassNames.focusVisibleOffset,
+    ].join(' '),
+  },
+});
 
-export function Slider({
-  value,
-  defaultValue = [0],
-  min = 0,
-  max = 100,
-  step = 1,
-  disabled = false,
-  onValueChange,
-  label,
-}: SliderProps) {
-  return (
-    <div className="flex flex-col gap-2 w-full">
-      {label && (
-        <span className="text-base font-normal text-[var(--color-text-primary)]">{label}</span>
-      )}
-      <RadixSlider.Root
-        className="relative flex items-center select-none touch-none w-full h-6"
-        value={value}
-        defaultValue={defaultValue}
-        min={min}
-        max={max}
-        step={step}
-        disabled={disabled}
-        onValueChange={onValueChange}
-      >
-        <RadixSlider.Track className="relative grow rounded-full h-1.5 bg-[#d1d5db]">
-          <RadixSlider.Range className="absolute h-full rounded-full bg-[#14532d]" />
-        </RadixSlider.Track>
-        {(value ?? defaultValue).map((_, i) => (
-          <RadixSlider.Thumb
-            key={i}
-            className={[
-              'block w-4 h-4 rounded-full bg-[#14532d] border-2 border-white shadow-md',
-              'transition-shadow',
-              'hover:shadow-[0_0_0_4px_rgba(20,83,45,0.15)]',
-              'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_rgba(20,83,45,0.25)]',
-              disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
-            ].join(' ')}
-            aria-label={label ?? 'Slider'}
-          />
-        ))}
-      </RadixSlider.Root>
-    </div>
-  );
-}
+const { root, track, range, thumb } = sliderVariants();
+
+const SliderRoot = forwardRef<
+  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentProps<typeof SliderPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <SliderPrimitive.Root
+    ref={ref}
+    data-slot="slider-root"
+    className={cn(root(), className)}
+    {...props}
+  />
+));
+SliderRoot.displayName = 'Slider.Root';
+
+const SliderTrack = forwardRef<
+  React.ElementRef<typeof SliderPrimitive.Track>,
+  React.ComponentProps<typeof SliderPrimitive.Track>
+>(({ className, ...props }, ref) => (
+  <SliderPrimitive.Track
+    ref={ref}
+    data-slot="slider-track"
+    className={cn(track(), className)}
+    {...props}
+  />
+));
+SliderTrack.displayName = 'Slider.Track';
+
+const SliderRange = forwardRef<
+  React.ElementRef<typeof SliderPrimitive.Range>,
+  React.ComponentProps<typeof SliderPrimitive.Range>
+>(({ className, ...props }, ref) => (
+  <SliderPrimitive.Range
+    ref={ref}
+    data-slot="slider-range"
+    className={cn(range(), className)}
+    {...props}
+  />
+));
+SliderRange.displayName = 'Slider.Range';
+
+const SliderThumb = forwardRef<
+  React.ElementRef<typeof SliderPrimitive.Thumb>,
+  React.ComponentProps<typeof SliderPrimitive.Thumb>
+>(({ className, ...props }, ref) => (
+  <SliderPrimitive.Thumb
+    ref={ref}
+    data-slot="slider-thumb"
+    className={cn(thumb(), className)}
+    {...props}
+  />
+));
+SliderThumb.displayName = 'Slider.Thumb';
+
+const Slider = {
+  Root: SliderRoot,
+  Track: SliderTrack,
+  Range: SliderRange,
+  Thumb: SliderThumb,
+} as const;
+
+export { Slider };
